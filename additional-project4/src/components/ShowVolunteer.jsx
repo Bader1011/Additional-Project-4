@@ -3,7 +3,7 @@ import React, { Component } from "react";
 class ShowVolunteer extends Component {
   render() {
     return (
-      <div>
+      <div className="v">
         <h2>
           Name: {this.props.volunteer.name}
           <br />{" "}

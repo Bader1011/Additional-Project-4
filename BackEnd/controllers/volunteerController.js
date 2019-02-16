@@ -50,7 +50,7 @@ router.put("/users/:id",  auth,  Volunteer.update, (req, res) => {
     console.log("\n\n\n\n\n\n\n\n_________________" , res.user)
 
     if (res.user ){
-    const {  name, id  , is_volunteer , email , phone  ,  location } = res.user;
+    const {  name, id  , is_volunteer , email , phone  } = res.user;
 
     const token = jwt.sign({ name, id , is_volunteer }, process.env.JWT_KEY);
 

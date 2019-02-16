@@ -68,7 +68,7 @@ user.create = (req, res, next) => {
     ]
   )
     .then(function (result) {
-        console.log('jijijijijijij',result)
+        console.log('work',result)
       req.user = result;
       next();
     })
