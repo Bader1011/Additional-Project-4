@@ -8,11 +8,13 @@ const Signup = ({ renderInput, handleSubmit }) => {
         {renderInput("email", "Email")}
         {renderInput("password", "Password", "password")}
         {renderInput("phone", "Phone")}
-        {renderInput("location", "Location")}
+        
 
         <button className="btnsub"> SignUp </button>
+
       </form>
     </div>
+   
   );
 };
 

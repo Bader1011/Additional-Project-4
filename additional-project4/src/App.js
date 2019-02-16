@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import { getUser, logout } from "./services/authService";
 import NavBar from "./components/NavBar";
-import Auth from "./components/Auth";
+import AuthForm from "./components/Auth";
 import "./App.css";
 import ShowVolunteer from './components/ShowVolunteer';
 import ShowUsers from './components/ShowUsers';
 import ShowOrganisation from './components/ShowOrganisation ';
 import { setJwt, getJwt } from "./services/authService";
 import EditData from './components/EditData';
+import ShowLessons from "./components/ShowLessons";
+//import VideoCall from './VideoCall';
 
 
 class App extends Component {
@@ -16,7 +18,8 @@ class App extends Component {
     this.state = {
       users: [],
       organization: [],
-      activeShow: ''
+      activeShow: '',
+      activePage: ""
     };
   }
 
@@ -36,7 +39,18 @@ class App extends Component {
   componentDidMount(){
     this.getData();
     this.getDataOrganization();
+
+    
   }
+
+
+  changeForm = type => {
+    console.log(type);
+    this.setState({
+      form: type
+    });
+  };
+
 
   getData(){
     const url = 'http://localhost:3000/volunteer/'
@@ -45,7 +59,7 @@ class App extends Component {
       .then(data => {
         console.log(data)
         this.setState({users: data})
-        // this.login();
+        //this.login();
       })
       .catch(error => {
         console.log(error);
@@ -107,6 +121,9 @@ class App extends Component {
     return organization
   }
 
+
+  
+
   editeData(data){
     return <EditData updateData={this.updateData.bind(this)} user={data}/>
   }
@@ -142,20 +159,44 @@ class App extends Component {
       return this.volunteerData()
     } else if(this.state.activeShow === 'organization'){
       return this.organizationData()
-    }
+    
+  } else if(this.state.activeShow === 'lessons'){
+    return <ShowLessons/>
+  }
+  }
+
+  changeActivePage = (activePage) => {
+
+    console.log("\n\n\n\n AAAAAA \n\n\n you're in ", activePage)
+    this.setState({ activePage })
   }
 
   render() {
     return (
+       <div>
+
+
+<NavBar
+            user={this.state.user}
+            changeForm={this.changeForm}
+            logout={this.logout}
+            getProducts={this.getProducts}
+            changeActivePage={this.changeActivePage}
+          />
+      
+      
+        <AuthForm form={this.state.form} onLogin={this.login} />
+       
       
       <div>
-        <NavBar/>
-        <Auth form={this.state.form} onLogin={this.login} />
-       
+
         {this.renderShow()}
-        <button onClick={() => {this.setState({activeShow: 'users'})}}>Show all Users</button>
-        <button onClick={() => {this.setState({activeShow: 'volunteer'})}}>Show all Volunteer</button>
-        <button onClick={() => {this.setState({activeShow: 'organization'})}}>Show all Organization and Volunteer</button>
+        <button onClick={() => {this.setState({activeShow: 'users'})}}> Users List</button>
+        <button onClick={() => {this.setState({activeShow: 'volunteer'})}}>  Volunteer List</button>
+        <button onClick={() => {this.setState({activeShow: 'organization'})}}>  Organization and Volunteer List</button><br/>
+        <button onClick={() => {this.setState({activeShow: 'lessons'})}}>  lessons</button>
+      
+      </div>
       </div>
     );
   }

@@ -11,15 +11,15 @@ class AuthForm extends Component {
         email: "",
         password: "",
         name: "",
-        phone: ""
+        phone: "",
       }
     };
   }
 
   handleRequest(user) {
-    let apiUrl = "http://localhost:3000/volunteer/users/";
+    let apiUrl = "http://localhost:3000/volunteer";
 
-    // apiUrl += this.props.form === "signup" ? "/users" : "/auth";
+     apiUrl += this.props.form === "signup" ? "/users" : "/auth";
     console.log(apiUrl);
     console.log(user);
     fetch(apiUrl, {
@@ -31,7 +31,7 @@ class AuthForm extends Component {
     })
       .then(response => response.json())
       .then(data => {
-        // console.log(data);
+         console.log(data);
         setJwt(data.token);
         console.log(data);
         this.props.onLogin();

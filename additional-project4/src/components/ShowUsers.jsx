@@ -3,7 +3,7 @@ import React, { Component } from "react";
 class ShowUsers extends Component {
     render() { 
         return ( 
-            <div>
+            <div className="u">
                 Name: {this.props.user.name} <br></br>
                 Email: {this.props.user.email}<br></br>
                 Password: {this.props.user.password}<br></br>
